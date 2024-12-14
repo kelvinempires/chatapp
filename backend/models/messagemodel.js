@@ -17,9 +17,9 @@ const messageSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    //created at and updated at
+    // Automatically added `createdAt` and `updatedAt` fields
   },
-  { timestamp: true }
+  { timestamps: true } // Corrected to 'timestamps'
 );
 
 const Message = mongoose.model("Message", messageSchema);

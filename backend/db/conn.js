@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 dotenv.config();
 
-const dbConnection = async () => {
+const connectToMongoDB = async () => {
   try {
     await mongoose.connect(process.env.ATLAS_URI);
     console.log("Database connected successfully");
@@ -12,4 +12,4 @@ const dbConnection = async () => {
     console.log("Error while connecting to database", error);
   }
 };
-export default dbConnection;
+export default connectToMongoDB;
