@@ -8,16 +8,16 @@ import userRouter from "./routes/userRoute.js";
 
 import connectToMongoDB from "./db/conn.js";
 
+dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 
-dotenv.config();
 
 app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
-app.use("/api/message", messageRouter);
+app.use("/api/messages", messageRouter);
 app.use("/api/users", userRouter);
 // app.get("/", (req, res) => {
 //   res.send("hello world!");
