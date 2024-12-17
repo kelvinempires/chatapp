@@ -2,23 +2,23 @@ import { useEffect, useRef } from "react";
 import useGetMessages from "../../Hooks/userGetMessages";
 import MessageSkeleton from "../skeletons/MessageSkeleton";
 import Message from "./Message";
+import useListenMessages from "../../Hooks/useListenMessages";
 
 const Messages = () => {
   const { messages, loading } = useGetMessages();
+  useListenMessages;
   const lastMessageRef = useRef();
   useEffect(() => {
-    setTimeout(() =>{
-          lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-    },100)
+    setTimeout(() => {
+      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
   }, [messages]);
   return (
-    <div className="px-4 flex-1 overflow-auto">
+    <div className="px-4 flex-1 h-full overflow-x-hidden">
       {!loading &&
         messages.length > 0 &&
         messages.map((message) => (
-          <div key={message._id}
-          ref={lastMessageRef}
-          >
+          <div key={message._id} className="w-[90dvh]" ref={lastMessageRef}>
             <Message message={message} />
           </div>
         ))}

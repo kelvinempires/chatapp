@@ -1,5 +1,6 @@
 import Conversation from "../models/conversationModel.js";
 import Message from "../models/messageModel.js";
+import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
   try {
@@ -27,16 +28,22 @@ export const sendMessage = async (req, res) => {
       conversation.messages.push(newMessage._id);
     }
 
-    //SOCET IO FUNTIONALITY
-
     //await.conversation.save()
     //await.newMessage.save()
 
     // this will run in parrallel
     await Promise.all([conversation.save(), newMessage.save()]);
+
+    //SOCET IO FUNTIONALITY
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) {
+      //io.to(<socket_id>).emit(use)used to send event to a specific client
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
+
     res.status(201).json(newMessage);
   } catch (error) {
-    console.log("error in messageController:", error.message);
+    console.log("Error in sendMessageController:", error.message);
     res.status(500).json({ error: "internal server error" });
   }
 };
@@ -47,7 +54,8 @@ export const getMessages = async (req, res) => {
     const senderId = req.user._id;
     const conversation = await Conversation.findOne({
       participants: { $all: [senderId, userToChatId] },
-    }).populate("messages"); //not reffrenc but actual message
+    }).populate("messages"); // Populate with actual messages
+
     if (!conversation) return res.status(200).json([]);
 
     const messages = conversation.messages;
