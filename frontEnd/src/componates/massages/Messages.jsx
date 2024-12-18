@@ -8,17 +8,18 @@ const Messages = () => {
   const { messages, loading } = useGetMessages();
   useListenMessages;
   const lastMessageRef = useRef();
+
   useEffect(() => {
     setTimeout(() => {
       lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 100);
   }, [messages]);
   return (
-    <div className="px-4 flex-1 h-full overflow-x-hidden">
+    <div className="flex-1 overflow-auto px-4">
       {!loading &&
         messages.length > 0 &&
         messages.map((message) => (
-          <div key={message._id} className="w-[90dvh]" ref={lastMessageRef}>
+          <div key={message._id} ref={lastMessageRef}>
             <Message message={message} />
           </div>
         ))}

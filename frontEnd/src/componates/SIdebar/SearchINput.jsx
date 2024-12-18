@@ -13,9 +13,10 @@ const SearchInput = () => {
     e.preventDefault();
     if (!search) return;
     if (search.length < 3) {
-      return toast.error("search term must be at least 3 character long")
+      return toast.error("search term must be at least 3 character long");
     }
-    const conversation = conversations.find((c) => c.fullname.toLowerCase().includes(search.toLowerCase())
+    const conversation = conversations.find((c) =>
+      c.fullname.toLowerCase().includes(search.toLowerCase())
     );
 
     if (conversation) {
@@ -24,7 +25,11 @@ const SearchInput = () => {
     } else toast.error("no such user found");
   };
   return (
-    <form onSubmit={handleSubmit} className="flex items-center fixed top-0 left-0 right-0 z-40 gap-2">
+    //sticky  bg-slate-500 px-4 py-2 top-0 to be added to form input
+    <form
+      onSubmit={handleSubmit}
+      className="flex items-center  gap-2 z-10"
+    >
       <input
         type="text"
         placeholder="Search..."
