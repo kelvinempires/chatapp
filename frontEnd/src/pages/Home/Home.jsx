@@ -4,7 +4,7 @@ import SIdebar from "../../componates/SIdebar/SIdebar";
 const Home = () => {
   return (
     <div
-      className="flex h-screen bg-gray-400 rounded-lg overflow-hidden  bg-clip-padding
+      className="flex sm:h-[450px] md:h-[550px] bg-gray-400 rounded-lg overflow-hidden  bg-clip-padding
     backdrop-filter backdrop-blur-lg bg-opacity-0"
     >
       <SIdebar />
