@@ -10,10 +10,11 @@ import userRouter from "./routes/userRoute.js";
 import connectToMongoDB from "./db/conn.js";
 import { app, server } from "./socket/socket.js";
 
-dotenv.config();
-const port = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 
 const __dirname = path.resolve();
+
+dotenv.config();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -28,7 +29,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "frontEnd", "dist", "index.html"));
 });
 
-server.listen(port, () => {
+server.listen(PORT, () => {
   connectToMongoDB();
-  console.log(`server is running on port http://localhost:${port}`);
+  console.log(`server is running on port http://localhost:${PORT}`);
 });
