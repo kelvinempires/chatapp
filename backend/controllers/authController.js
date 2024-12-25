@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 import generateTokenSetCookies from "../middleware/genarateToken.js";
@@ -11,7 +11,7 @@ export const signup = async (req, res) => {
       return res.status(400).send("user already exists");
     }
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcryptjs.hash(password, saltRounds);
     const boyProfileImage = `https://avatar.iran.liara.run/public/boy?username=${username}`;
     const girlProfileImage = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
@@ -48,7 +48,7 @@ export const login = async (req, res) => {
     }
     const user = await User.findOne({ username });
     if (!user) return res.status(401).send("Username does not exist");
-    const isCorrectPassword = await bcrypt.compare(password, user.password);
+    const isCorrectPassword = await bcryptjs.compare(password, user.password);
     if (!isCorrectPassword) {
       return res.status(401).json("Invalid password");
     }
